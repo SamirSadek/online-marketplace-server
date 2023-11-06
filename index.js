@@ -35,6 +35,14 @@ async function run() {
         const result = await cursor.toArray()
         res.send(result)
     })
+
+    app.get('/addJob/:id', async(req, res)=>{
+        const id = req.params.id
+        const query = {_id: new ObjectId(id)}
+        const result = await jobCollection.findOne(query)
+        res.send(result)
+    })
+
     app.post('/addJob',async(req,res)=>{
         const newJob = req.body;
         console.log(newJob)
