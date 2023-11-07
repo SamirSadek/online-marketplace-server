@@ -47,6 +47,11 @@ async function run() {
       const result = await jobCollection.insertOne(newJob);
       res.send(result);
     });
+    app.get("/bidJob", async (req, res) => {
+      const cursor = bidCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
     app.post("/bidJob", async (req, res) => {
       const bidJob = req.body;
       console.log(bidJob);
