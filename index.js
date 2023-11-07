@@ -52,12 +52,28 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     });
+
+
     app.post("/bidJob", async (req, res) => {
       const bidJob = req.body;
       console.log(bidJob);
       const result = await bidCollection.insertOne(bidJob);
       res.send(result);
     });
+
+    app.patch('/bidJob/:id', async(req, res)=>{
+      const id = req.params.id
+      const filter = {_id: new ObjectId(id)}
+      const updateStatus = req.body
+      console.log(updateStatus)
+      const updatedDoc = {
+        $set: {
+          status: updateStatus.status
+        }
+      }
+      const result = await bidCollection.updateOne(filter, updatedDoc)
+      res.send(result)
+    })
 
     app.put("/addJob/:id", async (req, res) => {
       const id = req.params.id;
